@@ -3,81 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Multi-Página</title>
+    <title>Formulario Multi-página</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <form id="multiPageForm">
+    <div id="form-container">
         <!-- Página 1: Datos Personales -->
-        <div id="page1" class="page active">
+        <div id="page1" class="page">
             <h2>Datos Personales</h2>
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <input type="text" id="nombre" name="nombre">
             <label for="edad">Edad:</label>
-            <input type="number" id="edad" name="edad" required>
-            <button type="button" onclick="nextPage(2)">Siguiente</button>
+            <input type="number" id="edad" name="edad">
+            <button onclick="nextPage(2)">Siguiente</button>
         </div>
 
         <!-- Página 2: Familiares -->
-        <div id="page2" class="page">
+        <div id="page2" class="page" style="display:none;">
             <h2>Familiares</h2>
             <div id="familiares">
                 <div class="familiar">
                     <label for="nombreFamiliar">Nombre:</label>
-                    <input type="text" class="nombreFamiliar" required>
+                    <input type="text" class="nombreFamiliar" name="nombreFamiliar">
                     <label for="parentesco">Parentesco:</label>
-                    <input type="text" class="parentesco" required>
+                    <input type="text" class="parentesco" name="parentesco">
                     <label for="edadFamiliar">Edad:</label>
-                    <input type="number" class="edadFamiliar" required>
+                    <input type="number" class="edadFamiliar" name="edadFamiliar">
                 </div>
             </div>
-            <button type="button" onclick="addFamiliar()">Agregar Familiar</button>
-            <button type="button" onclick="nextPage(3)">Siguiente</button>
-            <button type="button" onclick="prevPage(1)">Anterior</button>
+            <button onclick="addFamiliar()">Agregar Familiar</button>
+            <button onclick="nextPage(3)">Siguiente</button>
         </div>
 
         <!-- Página 3: Condiciones Pre-Existentes -->
-        <div id="page3" class="page">
+        <div id="page3" class="page" style="display:none;">
             <h2>Condiciones Pre-Existentes</h2>
             <div id="condiciones">
                 <div class="condicion">
                     <label for="enfermedad">Enfermedad:</label>
-                    <input type="text" class="enfermedad" required>
+                    <input type="text" class="enfermedad" name="enfermedad">
                     <label for="tiempo">Tiempo con la Enfermedad:</label>
-                    <input type="text" class="tiempo" required>
+                    <input type="text" class="tiempo" name="tiempo">
                 </div>
             </div>
-            <button type="button" onclick="addCondicion()">Agregar Condición</button>
-            <button type="button" onclick="nextPage(4)">Siguiente</button>
-            <button type="button" onclick="prevPage(2)">Anterior</button>
+            <button onclick="addCondicion()">Agregar Condición</button>
+            <button onclick="nextPage(4)">Siguiente</button>
         </div>
 
         <!-- Página 4: Internamientos Realizados -->
-        <div id="page4" class="page">
+        <div id="page4" class="page" style="display:none;">
             <h2>Internamientos Realizados</h2>
             <div id="internamientos">
                 <div class="internamiento">
                     <label for="fecha">Fecha:</label>
-                    <input type="date" class="fecha" required>
+                    <input type="date" class="fecha" name="fecha">
                     <label for="centroMedico">Centro Médico:</label>
-                    <input type="text" class="centroMedico" required>
+                    <input type="text" class="centroMedico" name="centroMedico">
                     <label for="diagnostico">Diagnóstico:</label>
-                    <input type="text" class="diagnostico" required>
+                    <input type="text" class="diagnostico" name="diagnostico">
                 </div>
             </div>
-            <button type="button" onclick="addInternamiento()">Agregar Internamiento</button>
-            <button type="button" onclick="nextPage(5)">Siguiente</button>
-            <button type="button" onclick="prevPage(3)">Anterior</button>
+            <button onclick="addInternamiento()">Agregar Internamiento</button>
+            <button onclick="nextPage(5)">Siguiente</button>
         </div>
 
         <!-- Página 5: Resumen -->
-        <div id="page5" class="page">
+        <div id="page5" class="page" style="display:none;">
             <h2>Resumen</h2>
             <div id="resumen"></div>
-            <button type="button" onclick="prevPage(4)">Anterior</button>
-            <button type="button" onclick="submitForm()">Enviar</button>
+            <button onclick="submitForm()">Grabar</button>
         </div>
-    </form>
+    </div>
 
     <script src="script.js"></script>
 </body>

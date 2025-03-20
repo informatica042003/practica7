@@ -1,21 +1,19 @@
 let currentPage = 1;
 let formData = {
-    datosPersonales: {},
+    nombre: '',
+    edad: '',
     familiares: [],
     condiciones: [],
     internamientos: []
 };
 
-function nextPage(page) {
-    document.getElementById(`page${currentPage}`).classList.remove('active');
-    document.getElementById(`page${page}`).classList.add('active');
-    currentPage = page;
-}
-
-function prevPage(page) {
-    document.getElementById(`page${currentPage}`).classList.remove('active');
-    document.getElementById(`page${page}`).classList.add('active');
-    currentPage = page;
+function nextPage(pageNumber) {
+    document.getElementById(`page${currentPage}`).style.display = 'none';
+    document.getElementById(`page${pageNumber}`).style.display = 'block';
+    currentPage = pageNumber;
+    if (pageNumber === 5) {
+        showResumen();
+    }
 }
 
 function addFamiliar() {
@@ -24,11 +22,11 @@ function addFamiliar() {
     newFamiliar.className = 'familiar';
     newFamiliar.innerHTML = `
         <label for="nombreFamiliar">Nombre:</label>
-        <input type="text" class="nombreFamiliar" required>
+        <input type="text" class="nombreFamiliar" name="nombreFamiliar">
         <label for="parentesco">Parentesco:</label>
-        <input type="text" class="parentesco" required>
+        <input type="text" class="parentesco" name="parentesco">
         <label for="edadFamiliar">Edad:</label>
-        <input type="number" class="edadFamiliar" required>
+        <input type="number" class="edadFamiliar" name="edadFamiliar">
     `;
     familiaresDiv.appendChild(newFamiliar);
 }
@@ -39,9 +37,9 @@ function addCondicion() {
     newCondicion.className = 'condicion';
     newCondicion.innerHTML = `
         <label for="enfermedad">Enfermedad:</label>
-        <input type="text" class="enfermedad" required>
+        <input type="text" class="enfermedad" name="enfermedad">
         <label for="tiempo">Tiempo con la Enfermedad:</label>
-        <input type="text" class="tiempo" required>
+        <input type="text" class="tiempo" name="tiempo">
     `;
     condicionesDiv.appendChild(newCondicion);
 }
@@ -52,60 +50,51 @@ function addInternamiento() {
     newInternamiento.className = 'internamiento';
     newInternamiento.innerHTML = `
         <label for="fecha">Fecha:</label>
-        <input type="date" class="fecha" required>
+        <input type="date" class="fecha" name="fecha">
         <label for="centroMedico">Centro Médico:</label>
-        <input type="text" class="centroMedico" required>
+        <input type="text" class="centroMedico" name="centroMedico">
         <label for="diagnostico">Diagnóstico:</label>
-        <input type="text" class="diagnostico" required>
+        <input type="text" class="diagnostico" name="diagnostico">
     `;
     internamientosDiv.appendChild(newInternamiento);
 }
 
-function submitForm() {
-    // Recopilar datos
-    formData.datosPersonales = {
-        nombre: document.getElementById('nombre').value,
-        edad: document.getElementById('edad').value
-    };
-
-    formData.familiares = Array.from(document.querySelectorAll('.familiar')).map(familiar => ({
-        nombre: familiar.querySelector('.nombreFamiliar').value,
-        parentesco: familiar.querySelector('.parentesco').value,
-        edad: familiar.querySelector('.edadFamiliar').value
-    }));
-
-    formData.condiciones = Array.from(document.querySelectorAll('.condicion')).map(condicion => ({
-        enfermedad: condicion.querySelector('.enfermedad').value,
-        tiempo: condicion.querySelector('.tiempo').value
-    }));
-
-    formData.internamientos = Array.from(document.querySelectorAll('.internamiento')).map(internamiento => ({
-        fecha: internamiento.querySelector('.fecha').value,
-        centroMedico: internamiento.querySelector('.centroMedico').value,
-        diagnostico: internamiento.querySelector('.diagnostico').value
-    }));
-
-    // Mostrar resumen
+function showResumen() {
     const resumenDiv = document.getElementById('resumen');
-    resumenDiv.innerHTML = JSON.stringify(formData, null, 2);
+    formData.nombre = document.getElementById('nombre').value;
+    formData.edad = document.getElementById('edad').value;
 
-    // Guardar en JSON
-    saveToJson(formData);
+    formData.familiares = [];
+    document.querySelectorAll('.familiar').forEach(familiar => {
+        formData.familiares.push({
+            nombre: familiar.querySelector('.nombreFamiliar').value,
+            parentesco: familiar.querySelector('.parentesco').value,
+            edad: familiar.querySelector('.edadFamiliar').value
+        });
+    });
+
+    formData.condiciones = [];
+    document.querySelectorAll('.condicion').forEach(condicion => {
+        formData.condiciones.push({
+            enfermedad: condicion.querySelector('.enfermedad').value,
+            tiempo: condicion.querySelector('.tiempo').value
+        });
+    });
+
+    formData.internamientos = [];
+    document.querySelectorAll('.internamiento').forEach(internamiento => {
+        formData.internamientos.push({
+            fecha: internamiento.querySelector('.fecha').value,
+            centroMedico: internamiento.querySelector('.centroMedico').value,
+            diagnostico: internamiento.querySelector('.diagnostico').value
+        });
+    });
+
+    resumenDiv.innerHTML = JSON.stringify(formData, null, 2);
 }
 
-function saveToJson(data) {
-    const jsonData = JSON.stringify(data, null, 2);
-    fetch('data.json', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: jsonData
-    }).then(response => {
-        if (response.ok) {
-            alert('Datos guardados correctamente.');
-        } else {
-            alert('Error al guardar los datos.');
-        }
-    });
+function submitForm() {
+    // Aquí puedes agregar la lógica para enviar los datos a un servidor o guardarlos en localStorage
+    console.log('Datos guardados:', formData);
+    alert('Datos guardados exitosamente');
 }
