@@ -5,73 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Multi-página</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="form-container">
         <!-- Página 1: Datos Personales -->
-        <div id="page1" class="page">
+        <div id="page1" class="page active">
             <h2>Datos Personales</h2>
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre">
-            <label for="edad">Edad:</label>
-            <input type="number" id="edad" name="edad">
-            <button onclick="nextPage(2)">Siguiente</button>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" class="form-input">
+            </div>
+            <button class="form-button" onclick="nextPage(2)">Siguiente</button>
         </div>
 
         <!-- Página 2: Familiares -->
-        <div id="page2" class="page" style="display:none;">
+        <div id="page2" class="page">
             <h2>Familiares</h2>
             <div id="familiares">
-                <div class="familiar">
+                <div class="form-group familiar">
                     <label for="nombreFamiliar">Nombre:</label>
-                    <input type="text" class="nombreFamiliar" name="nombreFamiliar">
+                    <input type="text" class="nombreFamiliar form-input" name="nombreFamiliar">
                     <label for="parentesco">Parentesco:</label>
-                    <input type="text" class="parentesco" name="parentesco">
+                    <input type="text" class="parentesco form-input" name="parentesco">
                     <label for="edadFamiliar">Edad:</label>
-                    <input type="number" class="edadFamiliar" name="edadFamiliar">
+                    <input type="number" class="edadFamiliar form-input" name="edadFamiliar">
                 </div>
             </div>
-            <button onclick="addFamiliar()">Agregar Familiar</button>
-            <button onclick="nextPage(3)">Siguiente</button>
+            <button class="form-button" onclick="addFamiliar()">Agregar Familiar</button>
+            <button class="form-button" onclick="nextPage(3)">Siguiente</button>
         </div>
 
         <!-- Página 3: Condiciones Pre-Existentes -->
-        <div id="page3" class="page" style="display:none;">
+        <div id="page3" class="page">
             <h2>Condiciones Pre-Existentes</h2>
             <div id="condiciones">
-                <div class="condicion">
+                <div class="form-group condicion">
                     <label for="enfermedad">Enfermedad:</label>
-                    <input type="text" class="enfermedad" name="enfermedad">
+                    <input type="text" class="enfermedad form-input" name="enfermedad">
                     <label for="tiempo">Tiempo con la Enfermedad:</label>
-                    <input type="text" class="tiempo" name="tiempo">
+                    <input type="text" class="tiempo form-input" name="tiempo">
                 </div>
             </div>
-            <button onclick="addCondicion()">Agregar Condición</button>
-            <button onclick="nextPage(4)">Siguiente</button>
+            <button class="form-button" onclick="addCondicion()">Agregar Condición</button>
+            <button class="form-button" onclick="nextPage(4)">Siguiente</button>
         </div>
 
         <!-- Página 4: Internamientos Realizados -->
-        <div id="page4" class="page" style="display:none;">
+        <div id="page4" class="page">
             <h2>Internamientos Realizados</h2>
             <div id="internamientos">
-                <div class="internamiento">
+                <div class="form-group internamiento">
                     <label for="fecha">Fecha:</label>
-                    <input type="date" class="fecha" name="fecha">
+                    <input type="date" class="fecha form-input" name="fecha">
                     <label for="centroMedico">Centro Médico:</label>
-                    <input type="text" class="centroMedico" name="centroMedico">
+                    <input type="text" class="centroMedico form-input" name="centroMedico">
                     <label for="diagnostico">Diagnóstico:</label>
-                    <input type="text" class="diagnostico" name="diagnostico">
+                    <input type="text" class="diagnostico form-input" name="diagnostico">
                 </div>
             </div>
-            <button onclick="addInternamiento()">Agregar Internamiento</button>
-            <button onclick="nextPage(5)">Siguiente</button>
+            <button class="form-button" onclick="addInternamiento()">Agregar Internamiento</button>
+            <button class="form-button" onclick="nextPage(5)">Siguiente</button>
         </div>
 
         <!-- Página 5: Resumen -->
-        <div id="page5" class="page" style="display:none;">
+        <div id="page5" class="page">
             <h2>Resumen</h2>
-            <div id="resumen"></div>
-            <button onclick="submitForm()">Grabar</button>
+            <div id="resumen" class="resumen-container"></div>
+            <button class="form-button" onclick="downloadJSON()">Descargar JSON</button>
         </div>
     </div>
 

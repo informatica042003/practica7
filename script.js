@@ -8,8 +8,8 @@ let formData = {
 };
 
 function nextPage(pageNumber) {
-    document.getElementById(`page${currentPage}`).style.display = 'none';
-    document.getElementById(`page${pageNumber}`).style.display = 'block';
+    document.querySelector(`.page.active`).classList.remove('active');
+    document.getElementById(`page${pageNumber}`).classList.add('active');
     currentPage = pageNumber;
     if (pageNumber === 5) {
         showResumen();
@@ -90,11 +90,64 @@ function showResumen() {
         });
     });
 
-    resumenDiv.innerHTML = JSON.stringify(formData, null, 2);
+    // Generar el resumen organizado
+    let resumenHTML = `
+        <h3>Datos Personales</h3>
+        <ul>
+            <li><strong>Nombre:</strong> ${formData.nombre}</li>
+            <li><strong>Edad:</strong> ${formData.edad}</li>
+        </ul>
+
+        <h3>Familiares</h3>
+        <ul>
+            ${formData.familiares.map(familiar => `
+                <li>
+                    <strong>Nombre:</strong> ${familiar.nombre}<br>
+                    <strong>Parentesco:</strong> ${familiar.parentesco}<br>
+                    <strong>Edad:</strong> ${familiar.edad}
+                </li>
+            `).join('')}
+        </ul>
+
+        <h3>Condiciones Pre-Existentes</h3>
+        <ul>
+            ${formData.condiciones.map(condicion => `
+                <li>
+                    <strong>Enfermedad:</strong> ${condicion.enfermedad}<br>
+                    <strong>Tiempo:</strong> ${condicion.tiempo}
+                </li>
+            `).join('')}
+        </ul>
+
+        <h3>Internamientos Realizados</h3>
+        <ul>
+            ${formData.internamientos.map(internamiento => `
+                <li>
+                    <strong>Fecha:</strong> ${internamiento.fecha}<br>
+                    <strong>Centro Médico:</strong> ${internamiento.centroMedico}<br>
+                    <strong>Diagnóstico:</strong> ${internamiento.diagnostico}
+                </li>
+            `).join('')}
+        </ul>
+    `;
+
+    resumenDiv.innerHTML = resumenHTML;
 }
 
-function submitForm() {
-    // Aquí puedes agregar la lógica para enviar los datos a un servidor o guardarlos en localStorage
-    console.log('Datos guardados:', formData);
-    alert('Datos guardados exitosamente');
+function downloadJSON() {
+    // Convertir los datos a formato JSON
+    const jsonData = JSON.stringify(formData, null, 2);
+
+    // Crear un Blob con los datos
+    const blob = new Blob([jsonData], { type: 'application/json' });
+
+    // Crear un enlace para descargar el archivo
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'datos-formulario.json'; // Nombre del archivo
+    document.body.appendChild(a);
+    a.click(); // Simular clic en el enlace
+    document.body.removeChild(a); // Eliminar el enlace
+    URL.revokeObjectURL(url); // Liberar memoria
 }
