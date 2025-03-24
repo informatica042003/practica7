@@ -1,7 +1,7 @@
-/* Estilos generales */
+
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #4CAF50; /* Fondo verde */
+    background-color: #4CAF50; 
     margin: 0;
     padding: 0;
     display: flex;
@@ -34,7 +34,7 @@ h2 {
     font-weight: 500;
 }
 
-/* Grupos de formulario */
+
 .form-group {
     margin-bottom: 20px;
 }
@@ -62,9 +62,9 @@ label {
     outline: none;
 }
 
-/* Botones */
+
 .form-button {
-    background-color: #FF5252; /* Rojo */
+    background-color: #FF5252; 
     color: white;
     border: none;
     padding: 10px 20px;
@@ -76,7 +76,7 @@ label {
 }
 
 .form-button:hover {
-    background-color: #D32F2F; /* Rojo oscuro */
+    background-color: #D32F2F; 
 }
 
 /* Resumen */
@@ -110,7 +110,7 @@ label {
     border-radius: 4px;
 }
 
-/* Input de archivo */
+
 .file-input-label {
     display: block;
     font-size: 14px;

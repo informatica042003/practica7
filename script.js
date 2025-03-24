@@ -138,7 +138,7 @@ function downloadJSON() {
     // Convertir los datos a formato JSON
     const jsonData = JSON.stringify(formData, null, 2);
 
-    // Crear un Blob con los datos
+
     const blob = new Blob([jsonData], { type: 'application/json' });
 
     // Crear un enlace para descargar el archivo
